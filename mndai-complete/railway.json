@@ -1,0 +1,13 @@
+{
+  "$schema": "https://railway.app/schema.json",
+  "build": {
+    "builder": "dockerfile"
+  },
+  "deploy": {
+    "startCommand": "node backend/src/app.js"
+  },
+  "variables": {
+    "NODE_ENV": "production",
+    "PORT": "3000"
+  }
+}
