@@ -18,12 +18,14 @@ function Login() {
     setError('');
 
     try {
-      const response = await client.post('/auth/login', { email, password });
-      setToken(response.token);
-      setUser(response.user);
-      navigate('/');
+     const response = await client.post('/auth/login', { email, password });
+
+setToken(response.data.token);
+setUser(response.data.user);
+
+navigate('/');
     } catch (err) {
-      setError(err.error || 'Login failed');
+      setError(err.response?.data?.error || 'Login failed');
     } finally {
       setLoading(false);
     }
