@@ -11,7 +11,6 @@ export default function Register() {
   password: "",
   industry: ""
 });
-  });
 
   const handleChange = (e) => {
     setForm({
