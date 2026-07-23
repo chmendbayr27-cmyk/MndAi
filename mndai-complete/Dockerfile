@@ -26,7 +26,7 @@ COPY backend ./backend
 COPY --from=frontend-builder /app/build ./public
 
 # Copy environment file
-COPY .  .
+COPY . .
 
 # Expose port
 EXPOSE 3000
