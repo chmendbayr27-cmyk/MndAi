@@ -26,6 +26,47 @@ router.post('/register', async (req, res) => {
     );
 
     const user = result.rows[0];
+
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.status(201).json({
+      success: true,
+      user,
+      token
+    });
+
+  } catch (error) {
+    console.error("REGISTER ERROR:", error);
+
+    if (error.code === '23505') {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+
+    res.status(500).json({ error: error.message });
+  }
+});
+  try {
+    const { email, password, business_name, industry } = req.body;
+
+    if (!email || !password || !business_name) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const hashedPassword = await bcryptjs.hash(password, 12);
+    const userId = uuidv4();
+
+    const result = await db.query(
+      `INSERT INTO users (id, email, password_hash, business_name, industry, subscription_tier)
+       VALUES ($1, $2, $3, $4, $5, 'starter')
+       RETURNING id, email, business_name`,
+      [userId, email, hashedPassword, business_name, industry || null]
+    );
+
+    const user = result.rows[0];
     const token = jwt.sign(
       { userId: user.id, email: user.email },
       process.env.JWT_SECRET,
