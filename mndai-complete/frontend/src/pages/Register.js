@@ -6,9 +6,11 @@ export default function Register() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: ""
+  business_name: "",
+  email: "",
+  password: "",
+  industry: ""
+});
   });
 
   const handleChange = (e) => {
@@ -50,13 +52,13 @@ export default function Register() {
         <h1>Create Account</h1>
 
         <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
+  type="text"
+  name="business_name"
+  placeholder="Business Name"
+  value={form.business_name}
+  onChange={handleChange}
+  required
+/>
 
         <input
           type="email"
