@@ -103,9 +103,10 @@ process.on('SIGTERM', async () => {
   ...
   await redis.quit();
   ...
-});;
-  });
+process.on('SIGTERM', async () => {
+  await redis.quit();
 });
+
 
 // Start Server
 const PORT = process.env.PORT || 3000;
