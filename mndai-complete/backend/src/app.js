@@ -100,11 +100,10 @@ app.use(errorHandler);
 
 // Graceful Shutdown
 process.on('SIGTERM', async () => {
-  console.log('SIGTERM received, shutting down gracefully...');
-  server.close(async () => {
-    await db.close();
-    await redis.quit();
-    process.exit(0);
+  ...
+  await redis.quit();
+  ...
+});;
   });
 });
 
