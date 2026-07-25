@@ -124,6 +124,7 @@ const server = app.listen(PORT, () => {
   console.log(`🚀 MndAI Backend running on port ${PORT}`);
   console.log(`📊 Environment: ${process.env.NODE_ENV}`);
   console.log(`🔐 CORS origin: ${process.env.CORS_ORIGIN}`);
+  console.log("APP VERSION: JULY-25-FIX");
 });
 
 module.exports = app;
