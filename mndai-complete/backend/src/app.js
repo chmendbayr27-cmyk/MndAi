@@ -106,8 +106,8 @@ process.on('SIGTERM', async () => {
   server.close(async () => {
     try {
       if (redis && typeof redis.quit === 'function') {
-        await redis.quit();
-      }
+  await redis.quit();
+}
 
       await db.close();
 
