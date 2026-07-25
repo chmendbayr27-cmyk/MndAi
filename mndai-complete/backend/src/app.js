@@ -99,15 +99,25 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 // Graceful Shutdown
+// Graceful Shutdown
 process.on('SIGTERM', async () => {
-  ...
-  await redis.quit();
-  ...
-process.on('SIGTERM', async () => {
-  await redis.quit();
+  console.log('SIGTERM received, shutting down gracefully...');
+
+  server.close(async () => {
+    try {
+      if (redis && typeof redis.quit === 'function') {
+        await redis.quit();
+      }
+
+      await db.close();
+
+      process.exit(0);
+    } catch (err) {
+      console.error(err);
+      process.exit(1);
+    }
+  });
 });
-
-
 // Start Server
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
